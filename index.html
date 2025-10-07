@@ -1,129 +1,78 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Acceso restringido</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
   <style>
     body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:url('./imagen/84b1894c-03f7-4751-a8db-c7e3d62ac8ab.jfif') repeat center center fixed;
-      background-size:cover;
-      color:#7a0606;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      animation: moveBg 60s linear infinite;
+        background-image: url("./imgs/One_Direction.jfif");
+        background-size: cover;
+        backgroud-position: center;
+        backgroud-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
     }
-    @keyframes moveBg {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 100% 100%; }
-      100% { background-position: 0% 0%; }
-    }
-    .hidden{display:none}
-    .card{
-      background:rgba(0,0,0,0.6);
-      padding:30px;
-      border-radius:14px;
-      text-align:center;
-      box-shadow:0 8px 25px rgba(0,0,0,0.4);
-      animation:fadeIn 1s ease;
-    }
-    h1{
-      font-size:1.8rem;
-      margin-bottom:20px;
-      color:#ffd7f0;
-      animation:pulse 2s infinite;
-    }
-    label{display:block;margin:10px 0 5px;font-size:0.9rem;color:#eee}
     input{
-      padding:10px;
-      width:100%;
-      border-radius:8px;
-      border:none;
-      margin-bottom:15px;
-      font-size:1rem;
+    background: pink;
+    color: black;
+    margin: 15px;
+    display: block;
+    padding: 10px;
     }
     button{
-      padding:10px 18px;
-      border:none;
-      border-radius:10px;
-      font-weight:bold;
-      cursor:pointer;
-      background:linear-gradient(90deg,#ffd7f0,#ffc0e6);
-      color:#071026;
-      box-shadow:0 6px 20px rgba(249,115,154,0.25);
-      transition:transform .2s ease;
+            background: red !important;
+    color: white;
+    font-size: x-large;
+    padding: 10px;
     }
-    button:hover{transform:translateY(-4px)}
-    .buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-    .link-btn{
-      display:inline-block;
-      padding:16px 24px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:bold;
-      font-size:1.1rem;
-      background:linear-gradient(90deg,#ffd7f0,#ffc0e6);
-      color:#071026;
-      box-shadow:0 6px 20px rgba(249,115,154,0.25);
-      transition:transform .2s ease;
+    #resultado{
+        background-color: aliceblue;
     }
-    .link-btn:hover{transform:translateY(-4px)}
-    .error{color:#ffb4c6;font-size:0.9rem;margin-top:5px}
-    @keyframes pulse{0%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.6}100%{transform:scale(1);opacity:1}}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    #caja{
+    background: #4b7eabad;
+    padding: 50px;
+    border-radius: 40px;
+    text-align: center;
+    }
   </style>
 </head>
 <body>
-  <div id="loginCard" class="card">
-    <h1>Acceso restringido</h1>
-    <label for="username">Usuario</label>
-    <input type="text" id="username" placeholder="unicornio.poderoso">
-    <label for="password">Contraseña</label>
-    <input type="password" id="password" placeholder="*****">
-    <button id="loginBtn">Ingresar</button>
-    <div id="msg" class="error"></div>
-  </div>
-
-  <div id="unlocked" class="card hidden">
-    <h1>Sección desbloqueada 🎉</h1>
-    <div class="buttons">
-      <a class="link-btn" href="file:///C:/Users/TM_sa/Documents/Processing/tanya_dani_morena_cachetona/nuevo%20conversol%20de%20unidades/index.html" target="_blank">Conversor de unidades</a>
-      <a class="link-btn" href="file:///C:/Users/TM_sa/Documents/Processing/tanya_dani_morena_cachetona/index.html" target="_blank">Cálculo IMC</a>
+    <div id="caja">
+        <h2>Calculo de IMC</h2>
+        <input onchange="calcular_imc()" type="number" id="npeso">
+        <input type="number" id="naltura" onchange="calcular_imc()">
+        <button onclick="calcular_imc()">Calcular</button>
+        <h2 id="resultado"></h2>
+        <img id="fotito" src="" alt="" srcset="">
     </div>
-  </div>
-
-  <script>
-    const REQUIRED_USER = 'unicornio.poderoso';
-    const REQUIRED_PASS = '12345';
-    const loginBtn = document.getElementById('loginBtn');
-    const username = document.getElementById('username');
-    const password = document.getElementById('password');
-    const msg = document.getElementById('msg');
-    const loginCard = document.getElementById('loginCard');
-    const unlocked = document.getElementById('unlocked');
-
-    loginBtn.addEventListener('click', ()=>{
-      if(username.value.trim() === REQUIRED_USER && password.value === REQUIRED_PASS){
-        loginCard.classList.add('hidden');
-        unlocked.classList.remove('hidden');
-      } else {
-        msg.textContent = 'Usuario o contraseña incorrectos';
-        loginCard.animate([
-          { transform: 'translateX(0px)' },
-          { transform: 'translateX(-8px)' },
-          { transform: 'translateX(8px)' },
-          { transform: 'translateX(0px)' }
-        ], { duration: 300 });
-      }
-    });
-
-    [username,password].forEach(el=>el.addEventListener('keydown', e=>{
-      if(e.key==='Enter') loginBtn.click();
-    }));
-  </script>
+    <script type="text/javascript">
+        function calcular_imc() {
+/*             var altura, imc, peso;*/
+            peso = npeso.value;
+            altura = naltura.value;
+            imc = peso/(altura*altura);
+            if (imc < 18.6) {   
+                resultado.innerText = "bajopeso";
+                fotito.src = "./imgs/flaco.png";
+            }
+            if (imc >18.6 && imc < 25) {
+                resultado.innerText = "normal";
+                fotito.src = "./imgs/normal.png";
+            }
+        
+            if (imc >25 && imc < 30) {
+                resultado.innerText = "obesidad"
+                fotito.src = "./imgs/obeso.png"
+            }
+            if (imc > 30 && imc < 40) {
+                resultado.innerText = "obesidad extrema"
+                 fotito.src = "./imgs/superobes0.png"
+            }
+        }
+    </script>
 </body>
 </html>
